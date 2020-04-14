@@ -3,14 +3,19 @@ package com.uni.springboot.backend.apirest.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,6 +80,38 @@ public class UniversidadController {
 		
 		return new ResponseEntity<Universidad>(uni, HttpStatus.OK);
 	}
+	
+	
+	@PostMapping("")
+	public ResponseEntity<?> create(@Valid @RequestBody Universidad universidad, BindingResult result){
+		Universidad uniNew = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		if(result.hasErrors()) {
+			List<String> errores = result.getFieldErrors().stream()
+				.map(err -> "Error en el campo '" + err.getField() + "': " + err.getDefaultMessage())
+				.collect(Collectors.toList());
+			response.put("errores", errores);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST); 
+		}
+		
+		try {
+			uniNew = this.universidadService.save(universidad);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+	
+		response.put("mensaje", "La universidad ha sido creada con éxito.");
+		response.put("Universidad", uniNew);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	
+	
+	
+	
 	
 	@GetMapping("/uniId")
 	public ResponseEntity<?> findOne(@RequestParam String nombreUni){

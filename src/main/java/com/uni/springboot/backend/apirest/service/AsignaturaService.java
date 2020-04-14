@@ -34,5 +34,10 @@ public class AsignaturaService {
 	public Asignatura save(final Asignatura a) {
 		return this.asignaturaRepository.save(a);
 	}
+	
+	
+	public void delete(Long id) {
+		this.asignaturaRepository.deleteById(id);
+	}
 
 }
