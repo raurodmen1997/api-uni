@@ -52,6 +52,32 @@ public class FacultadController {
 		
 	}
 	
+	
+	
+	@GetMapping("/nombre")
+	public ResponseEntity<?> findByName(@RequestParam String nombre){
+		Facultad facultad = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try {
+			facultad = this.facultadService.findByName(nombre);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		if(facultad == null) {
+			response.put("mensaje",	 "La facultad, cuyo nombre es '".concat(nombre).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		return new ResponseEntity<Facultad>(facultad, HttpStatus.OK);
+		
+	}
+	
+	
+	
 	@GetMapping("/busquedaFacultades")
 	public List<Facultad> findFacuUni(@RequestParam String universidad){
 		return this.facultadService.findFacuUni(universidad);
