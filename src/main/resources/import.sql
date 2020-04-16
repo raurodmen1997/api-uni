@@ -1,4 +1,11 @@
+INSERT INTO `cursos` (`nombre`) VALUES ('PRIMERO');
+INSERT INTO `cursos` (`nombre`) VALUES ('SEGUNDO');
+INSERT INTO `cursos` (`nombre`) VALUES ('TERCERO');
+INSERT INTO `cursos` (`nombre`) VALUES ('CUARTO');
+INSERT INTO `cursos` (`nombre`) VALUES ('QUINTO');
+INSERT INTO `cursos` (`nombre`) VALUES ('SEXTO');
 
+ 
 INSERT INTO `universidades` (`nombre`) VALUES ('Universidad de Sevilla');
 
 INSERT INTO `facultades` (`nombre`, `universidad_id`) VALUES ('Escuela Técnica Superior de Ingeniería Informática', '1');
@@ -17,60 +24,57 @@ INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en
 INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Ingeniería de la Salud', '1', '4');
 
 
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Fundamentos de Programación', '1', '2050001', '12');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Administración de Empresas', '1', '2060002', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Cálculo Infinitesimal y Numérico', '1', '2060003', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Álgebra Lineal y Numérica', '1', '2060006', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Estadística', '1', '2060007', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Circuitos Electrónicos Digitales', '1', '2060004', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Estructura de Computadores', '1', '2060008', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Introducción a la Matemática Discreta', '1', '2060005', '6');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Fundamentos Físicos de la Informática', '1', '2060009', '6')
 
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Análisis y Diseño de Datos y Algoritmos', '2', '2050010', '12')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Diseño de Sistemas Digitales', '2', '2040012', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura de Computadores', '2', '2050015', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Introducción a la Ingeniería del Software y los Sistemas de Información I', '2', '2050046', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Introducción a la Ingeniería del Software y los Sistemas de Información II', '2', '2050047', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas Operativos', '2', '2050014', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Matemática Discreta', '2', '2050017', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Tecnologías de Computadores', '2', '2040014', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Redes de Computadores', '2', '2040017', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura e Integración de Sistemas Software', '2', '2050016', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Lógica Informática', '2', '2050012', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura de Redes', '2', '	2060016', '6')
 
-
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Fundamentos de Programación', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Administración de Empresas', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Cálculo Infinitesimal y Numérico', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Álgeba Lineal y Numérica', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Estadística', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Circuitos Electrónicos Digitales', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Estructura de Computadores', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Introducción a la Matemática Discreta', '1');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Fundamentos Físicos de la Informática', '1')
-
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Análisis y Diseño de Datos y Algoritmos', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Diseño de Sistemas Digitales', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura de Computadores', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Introducción a la Ingeniería del Software y los Sistemas de Información I', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Introducción a la Ingeniería del Software y los Sistemas de Información II', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas Operativos', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Matemática Discreta', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Tecnologías de Computadores', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Redes de Computadores', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura e Integración de Sistemas Software', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Lógica Informática', '2')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura de Redes', '2')
-
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Diseño y Pruebas I', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Diseño y Pruebas II', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Ingeniería de Requisitos', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura y Servicios de Redes', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Inteligencia Artifial', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Modelado y Simulación Númerica', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Procesamiento de Señales y Multimedia', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Modelado y Visualización Gráfica', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Proceso Software y Gestión I', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Proceso Software y Gestión II', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura y Tecnologías de Redes I', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Arquitectura y Tecnologías de Redes II', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Desarrollo de Aplicaciones Distribuidas', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Geometria Computacional', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas Paralelos y Distribuidos', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Software de Sistemas', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Periféricos e Interfaces', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Teoría de Grafos', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas Empotrados y de Tiempo Real I', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Ampliación de Inteligencia Artificial', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Configuración, Implementación y Mantenimiento de Sistemas Informáticos', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Matemática Aplicada a Sistemas de Información', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas de Información Empresiales', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Procesadores de Lenguajes', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Programación Declarativa', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas Inteligentes', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Tecnologías Avanzadas de la Información', '3')
-INSERT INTO `asignaturas` (`nombre`, `curso_id`) VALUES ('Sistemas Empotrados y de Tiempo Real I', '3')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Diseño y Pruebas I', '3', '2050048', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Diseño y Pruebas II', '3', '2050049', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Ingeniería de Requisitos', '3', '2050020', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura y Servicios de Redes', '3', '2050023', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Inteligencia Artifial', '3', '2050024', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Modelado y Simulación Númerica', '3', '2050021', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Procesamiento de Señales y Multimedia', '3', '2050022', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Modelado y Visualización Gráfica', '3', '2050025', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Proceso Software y Gestión I', '3', '2050050', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Proceso Software y Gestión II', '3', '2050051', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura y Tecnologías de Redes I', '3', '2040049', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Arquitectura y Tecnologías de Redes II', '3', '2040050', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Desarrollo de Aplicaciones Distribuidas', '3', '2040023', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Geometria Computacional', '3', '2040024', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas Paralelos y Distribuidos', '3', '2040021', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Software de Sistemas', '3', '2040026', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Periféricos e Interfaces', '3', '2040020', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Teoría de Grafos', '3', '2040022', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas Empotrados y de Tiempo Real I', '3', '2040025', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Ampliación de Inteligencia Artificial', '3', '2060025', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Configuración, Implementación y Mantenimiento de Sistemas Informáticos', '3', '2060018', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Matemática Aplicada a Sistemas de Información', '3', '2060027', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas de Información Empresiales', '3', '2060028', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Procesadores de Lenguajes', '3', '2060022', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Programación Declarativa', '3', '2060023', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas Inteligentes', '3', '2060029', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Tecnologías Avanzadas de la Información', '3', '2060024', '6')
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`) VALUES ('Sistemas Empotrados y de Tiempo Real I', '3', '2040025', '6')
 
 
 
@@ -170,5 +174,3 @@ INSERT INTO `asignaturas_grados` (`asignaturas_id`, `grados_id`) VALUES ('46', '
 INSERT INTO `asignaturas_grados` (`asignaturas_id`, `grados_id`) VALUES ('47', '3');
 INSERT INTO `asignaturas_grados` (`asignaturas_id`, `grados_id`) VALUES ('48', '3');
 INSERT INTO `asignaturas_grados` (`asignaturas_id`, `grados_id`) VALUES ('49', '3');
-
-

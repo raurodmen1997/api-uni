@@ -37,6 +37,14 @@ public class Asignatura implements Serializable{
 	@Column(nullable = false)
 	private String nombre;
 	
+	@NotEmpty
+	@Column(nullable = false)
+	private String codigo;
+	
+	@NotEmpty
+	@Column(nullable = false)
+	private Long creditos;
+	
 	@Valid
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "curso_id")
@@ -78,6 +86,22 @@ public class Asignatura implements Serializable{
 
 	public void setGrados(Collection<Grado> grados) {
 		this.grados = grados;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public Long getCreditos() {
+		return creditos;
+	}
+
+	public void setCreditos(Long creditos) {
+		this.creditos = creditos;
 	}
 	
 	
