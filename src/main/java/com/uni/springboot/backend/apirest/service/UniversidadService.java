@@ -30,7 +30,14 @@ public class UniversidadService {
 		return this.universidadRepository.findUniId(nombreUni);
 	}
 	
+	public Universidad findByName(String name) {
+		return this.universidadRepository.findByName(name);
+	}
+	
 	public Universidad save(final Universidad u) {
 		return this.universidadRepository.save(u);
 	}
+	
+	
+	
 }
