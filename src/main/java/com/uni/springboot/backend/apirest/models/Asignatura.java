@@ -45,6 +45,9 @@ public class Asignatura implements Serializable{
 	@Column(nullable = false)
 	private Long creditos;
 	
+	@Column(nullable = false)
+	private TipoAsignatura tipo;
+	
 	@Valid
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "curso_id")
@@ -103,6 +106,15 @@ public class Asignatura implements Serializable{
 	public void setCreditos(Long creditos) {
 		this.creditos = creditos;
 	}
+
+	public TipoAsignatura getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoAsignatura tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 	
 }
