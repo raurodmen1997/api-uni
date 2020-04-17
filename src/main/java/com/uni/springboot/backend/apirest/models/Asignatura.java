@@ -43,7 +43,7 @@ public class Asignatura implements Serializable{
 	
 	@NotEmpty
 	@Column(nullable = false)
-	private Long creditos;
+	private Double creditos;
 	
 	@Column(nullable = false)
 	private TipoAsignatura tipo;
@@ -99,11 +99,11 @@ public class Asignatura implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public Long getCreditos() {
+	public Double getCreditos() {
 		return creditos;
 	}
 
-	public void setCreditos(Long creditos) {
+	public void setCreditos(Double creditos) {
 		this.creditos = creditos;
 	}
 
