@@ -23,6 +23,23 @@ INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en
 INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Ingeniería Informática-Ingeniería de Computadores', '1', '4');
 INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Ingeniería Informática-Tecnologías Informáticas', '1', '4');
 INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Ingeniería de la Salud', '1', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Fundamentos de Arquitectura', '2', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Edificación', '3', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Ingeniería de Materiales', '4', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Física', '4', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Doble Grado en Física y en Ingeniería de Materiales', '4', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Doble Grado en Física y Matemáticas', '4', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Doble Grado en Química y en Ingeniería de Materiales', '4', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Matemáticas', '5', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Estadística', '5', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Doble Grado en Matemáticas y Estadística', '5', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Química', '6', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Farmacia', '7', '5');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Óptica y Optometría', '7', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Doble Grado en Farmacia y en Óptica y Optometría', '7', '6');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Biología', '8', '4');
+INSERT INTO `grados` (`nombre`, `facultad_id`, `numerocursos`) VALUES ('Grado en Bioquímica', '8', '4');
+
 
 
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Administración de Empresas', '1', '2050006', '6', '0', '1');
