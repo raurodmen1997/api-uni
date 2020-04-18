@@ -54,8 +54,9 @@ public class Asignatura implements Serializable{
 	private Curso curso;
 	
 	@Valid
-	@ManyToMany
-	private Collection<Grado> grados;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "grado_id")
+	private Grado grado;
 	
 	
 	
@@ -83,12 +84,12 @@ public class Asignatura implements Serializable{
 		this.id = id;
 	}
 
-	public Collection<Grado> getGrados() {
-		return grados;
+	public Grado getGrado() {
+		return grado;
 	}
 
-	public void setGrados(Collection<Grado> grados) {
-		this.grados = grados;
+	public void setGrado(Grado grado) {
+		this.grado = grado;
 	}
 
 	public String getCodigo() {

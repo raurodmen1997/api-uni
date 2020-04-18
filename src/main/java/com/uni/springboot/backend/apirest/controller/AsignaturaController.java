@@ -83,7 +83,7 @@ public class AsignaturaController {
 	}
 	
 	
-	@PostMapping("")
+	/*@PostMapping("")
 	public ResponseEntity<?> create(@Valid @RequestBody Asignatura asignatura, BindingResult result){
 		Asignatura asignaturaNew = null;
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -118,5 +118,5 @@ public class AsignaturaController {
 			@RequestParam String grado,
 			@RequestParam String curso){
 		return this.asignaturaService.findListaAsignaturas(universidad, facultad, grado, curso);
-	}
+	}*/
 }

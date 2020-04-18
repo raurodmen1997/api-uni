@@ -26,7 +26,7 @@ public class AsignaturaService {
 		return this.asignaturaRepository.getAsignaturaPorNombre(nombre);
 	}
 	
-	public List<Asignatura> findListaAsignaturas(String universidad, 
+	/*public List<Asignatura> findListaAsignaturas(String universidad, 
 			String facultad, String grado, String curso){
 		return this.asignaturaRepository.findListaAsignaturas(universidad, facultad, grado, curso);
 	}
@@ -38,6 +38,6 @@ public class AsignaturaService {
 	
 	public void delete(Long id) {
 		this.asignaturaRepository.deleteById(id);
-	}
+	}*/
 
 }
