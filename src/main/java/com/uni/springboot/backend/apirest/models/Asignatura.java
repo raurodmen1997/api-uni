@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 
 
@@ -41,9 +44,10 @@ public class Asignatura implements Serializable{
 	@Column(nullable = false)
 	private String codigo;
 	
-	@NotEmpty
+	@Range(min=1, max=18)
 	@Column(nullable = false)
 	private Double creditos;
+	
 	
 	@Column(nullable = false)
 	private TipoAsignatura tipo;

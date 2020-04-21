@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uni.springboot.backend.apirest.models.Asignatura;
+import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.repository.AsignaturaRepository;
 
 @Service
@@ -24,6 +25,11 @@ public class AsignaturaService {
 	
 	public Asignatura getAsignaturaPorNombre(String nombre) {
 		return this.asignaturaRepository.getAsignaturaPorNombre(nombre);
+	}
+	
+	
+	public Asignatura save(final Asignatura a) { 
+		return this.asignaturaRepository.save(a);	
 	}
 	
 	/*public List<Asignatura> findListaAsignaturas(String universidad, 
