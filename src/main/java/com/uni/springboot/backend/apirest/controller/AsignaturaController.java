@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,7 +112,27 @@ public class AsignaturaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	
+	@DeleteMapping("/{asignaturaId}")
+	public ResponseEntity<?> eliminarAsignatura(@PathVariable Long asignaturaId){
+		Map<String, Object> response = new HashMap<String, Object>();
+		Asignatura  asignatura = this.asignaturaService.findOne(asignaturaId);
+		
+		if(asignatura == null) {
+			response.put("mensaje",	 "La asignatura con ID: ".concat(asignaturaId.toString()).concat(" no existe"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		try {
+			this.asignaturaService.delete(asignatura);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		response.put("mensaje", "La asignatura ha sido borrado con exito");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+	}
 	
 	/*
 	

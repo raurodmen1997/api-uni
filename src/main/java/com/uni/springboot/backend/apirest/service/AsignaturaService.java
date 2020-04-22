@@ -1,5 +1,6 @@
 package com.uni.springboot.backend.apirest.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,17 @@ public class AsignaturaService {
 		return this.asignaturaRepository.getAsignaturaPorNombre(nombre);
 	}
 	
+	public Collection<Asignatura> getAsignaturasPorGrado(Long idGrado){
+		return this.asignaturaRepository.getAsignaturasPorGrado(idGrado);
+	}
+	
 	
 	public Asignatura save(final Asignatura a) { 
 		return this.asignaturaRepository.save(a);	
+	}
+	
+	public void delete(final Asignatura a) {
+		this.asignaturaRepository.delete(a);
 	}
 	
 	/*public List<Asignatura> findListaAsignaturas(String universidad, 

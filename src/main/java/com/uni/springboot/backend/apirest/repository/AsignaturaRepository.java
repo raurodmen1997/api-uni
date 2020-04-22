@@ -1,5 +1,6 @@
 package com.uni.springboot.backend.apirest.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,5 +22,8 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, Long>{
 */	
 	@Query("select a from asignaturas a where a.nombre=?1")
 	Asignatura getAsignaturaPorNombre(String nombre);
+	
+	@Query("select a from asignaturas a where a.grado.id=?1")
+	Collection<Asignatura> getAsignaturasPorGrado(Long gradoId);
 
 }

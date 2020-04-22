@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.GradoService;
@@ -88,6 +90,28 @@ public class GradoController{
 		response.put("mensaje", "El grado ha sido creado con éxito.");
 		response.put("Grado", gradoNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/{gradoId}")
+	public ResponseEntity<?> eliminarGrado(@PathVariable Long gradoId){
+		Map<String, Object> response = new HashMap<String, Object>();
+		Grado  grado = this.gradoService.findOne(gradoId);
+		
+		if(grado == null) {
+			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" no existe"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		try {
+			this.gradoService.delete(grado);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		response.put("mensaje", "El grado ha sido borrado con exito");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
 	

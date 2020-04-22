@@ -479,7 +479,7 @@ INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Programación Científica', '1', '2310006', '6', 'Formacion_Básica', '9');
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Química I', '1', '2310007', '6', 'Formacion_Básica', '9');
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Técnicas Experimentales Básicas', '1', '2310008', '6', 'Formacion_Básica', '9');
-INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Circuitos Eléctricos: Teoría e Instrumentación', '2', '2310014', '6', '1', '9');
+INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Circuitos Eléctricos: Teoría e Instrumentación', '2', '2310014', '6', 'Obligatoria', '9');
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Electromagnetismo', '2', '2310009', '12', 'Obligatoria', '9');
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Mecánica y Ondas', '2', '2310010', '12', 'Obligatoria', '9');
 INSERT INTO `asignaturas` (`nombre`, `curso_id`, `codigo`, `creditos`, `tipo`, `grado_id`) VALUES ('Métodos Matemáticos II', '2', '2310011', '12', 'Obligatoria', '9');
