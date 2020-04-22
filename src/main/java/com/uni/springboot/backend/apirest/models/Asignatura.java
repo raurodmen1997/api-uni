@@ -1,23 +1,20 @@
 package com.uni.springboot.backend.apirest.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
+
+import validators.ValueEnum;
 
 
 
@@ -50,7 +47,8 @@ public class Asignatura implements Serializable{
 	
 	
 	@Column(nullable = false)
-	private TipoAsignatura tipo;
+	@ValueEnum(enumClass=TipoAsignatura.class)
+	private String tipo;
 	
 	@Valid
 	@ManyToOne(optional = false)
@@ -112,11 +110,11 @@ public class Asignatura implements Serializable{
 		this.creditos = creditos;
 	}
 
-	public TipoAsignatura getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoAsignatura tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 	
