@@ -47,10 +47,6 @@ public class GradoService{
 	}
 	
 	public void delete(final Grado c) {
-		Collection<Asignatura> asignaturasGrado = this.asignaturaService.getAsignaturasPorGrado(c.getId());
-		for(Asignatura a: asignaturasGrado) {
-			this.asignaturaService.delete(a);
-		}
 		this.gradoRepository.delete(c);
 	}
 

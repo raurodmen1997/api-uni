@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 import validators.ValueEnum;
@@ -59,6 +61,7 @@ public class Asignatura implements Serializable{
 	@Valid
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "grado_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Grado grado;
 	
 	
