@@ -32,6 +32,10 @@ public class AsignaturaService {
 		return this.asignaturaRepository.getAsignaturasPorGrado(idGrado);
 	}
 	
+	public Collection<Asignatura> getAsignaturasPorGradoYCurso(Long idGrado, Long idCurso){
+		return this.asignaturaRepository.getAsignaturasPorGradoYCurso(idGrado, idCurso);
+	}
+	
 	
 	public Asignatura save(final Asignatura a) { 
 		return this.asignaturaRepository.save(a);	

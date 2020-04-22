@@ -25,5 +25,8 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, Long>{
 	
 	@Query("select a from asignaturas a where a.grado.id=?1")
 	Collection<Asignatura> getAsignaturasPorGrado(Long gradoId);
+	
+	@Query("select a from asignaturas a where a.grado.id=?1 and a.curso.id=?2")
+	Collection<Asignatura> getAsignaturasPorGradoYCurso(Long gradoId, Long cursoId);
 
 }
