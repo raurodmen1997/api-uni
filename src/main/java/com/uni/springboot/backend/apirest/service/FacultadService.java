@@ -38,4 +38,8 @@ public class FacultadService {
 		return this.facultadRepository.save(c);	
 	}
 	
+	public void delete(final Facultad facultad) {
+		this.facultadRepository.delete(facultad);
+	}
+	
 }

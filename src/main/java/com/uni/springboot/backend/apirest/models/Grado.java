@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 
@@ -30,6 +32,7 @@ public class Grado implements Serializable{
 	
 	@Valid
 	@ManyToOne(optional=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "facultad_id")
 	private Facultad facultad;
 	
