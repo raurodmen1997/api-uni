@@ -38,6 +38,10 @@ public class UniversidadService {
 		return this.universidadRepository.save(u);
 	}
 	
+	public void delete(final Universidad universidad) {
+		this.universidadRepository.delete(universidad);
+	}
+	
 	
 	
 }

@@ -15,6 +15,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity(name = "facultades")
 public class Facultad implements Serializable{
 	
@@ -33,6 +36,7 @@ public class Facultad implements Serializable{
 	
 	@Valid
 	@ManyToOne(optional=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "universidad_id")
 	private Universidad universidad;
 
