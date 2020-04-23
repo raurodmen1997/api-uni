@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Curso;
+import com.uni.springboot.backend.apirest.models.Facultad;
 import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.service.AsignaturaService;
 import com.uni.springboot.backend.apirest.service.CursoService;
+import com.uni.springboot.backend.apirest.service.FacultadService;
 import com.uni.springboot.backend.apirest.service.GradoService;
 
 @RestController
@@ -41,6 +43,9 @@ public class GradoController{
 	
 	@Autowired
 	private CursoService cursoService;
+	
+	@Autowired
+	private FacultadService facultadService;
 	
 	@GetMapping("")
 	public List<Grado> findAll(){
@@ -181,6 +186,34 @@ public class GradoController{
 		}
 		
 		return new ResponseEntity<Collection<Asignatura>>(asignaturasPorGradoYCurso, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/gradosPorFacultad")
+	public ResponseEntity<?> gradosPorFacultad(@RequestParam Long facultadId){
+		Map<String, Object> response = new HashMap<String, Object>();
+		Collection<Grado> gradosPorFacultad = null;
+		Facultad facultad = this.facultadService.findOne(facultadId);
+		
+		if(facultad == null) {
+			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no existe"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		try {
+			gradosPorFacultad = this.gradoService.getGradosPorFacultad(facultadId);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		if(gradosPorFacultad.isEmpty()) {
+			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no tiene grados disponibles"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		return new ResponseEntity<Collection<Grado>>(gradosPorFacultad, HttpStatus.OK);
 		
 	}
 	

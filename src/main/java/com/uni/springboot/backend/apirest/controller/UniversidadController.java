@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class UniversidadController {
 		return new ResponseEntity<Universidad>(uni, HttpStatus.OK);
 	}
 	
-	
+	//---CREAR UNIVERSIDAD---
 	@PostMapping("")
 	public ResponseEntity<?> create(@Valid @RequestBody Universidad universidad, BindingResult result){
 		Universidad uniNew = null;
@@ -110,7 +111,47 @@ public class UniversidadController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	//---EDITAR UNIVERSIDAD---
+	@PutMapping("/editar/{idUniverisdad}")
+	public ResponseEntity<?> modificarUniversidad(@PathVariable Long idUniverisdad, 
+			@Valid @RequestBody Universidad universidad, BindingResult result) throws Exception {
+		Map<String, Object> response = new HashMap<String, Object>();
+		Universidad universidadEditada = null;
+		Universidad uni = this.universidadService.findOne(idUniverisdad);
+		
+		if(uni == null) {
+			response.put("mensaje",	 "La universidad, cuyo ID es '".concat(idUniverisdad.toString()).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		if(result.hasErrors()) {
+			List<String> errores = result.getFieldErrors().stream()
+				.map(err -> "Error en el campo '" + err.getField() + "': " + err.getDefaultMessage())
+				.collect(Collectors.toList());
+			response.put("errores", errores);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST); 
+		}
+		
+		try {
+			universidadEditada = this.universidadService.edit(idUniverisdad, universidad);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+				
+		}catch(Exception e) {
+			response.put("mensaje", " Ha ocurrido un error:");
+			response.put("error", e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+				
+		}
+		
+		return new ResponseEntity<Universidad>(universidadEditada ,HttpStatus.CREATED); 
+		
+	}
 	
+	
+	//---BORRAR UNIVERSIDAD---
 	@DeleteMapping("/{universidadId}")
 	public ResponseEntity<?> eliminarUniversidad(@PathVariable Long universidadId){
 		Map<String, Object> response = new HashMap<String, Object>();

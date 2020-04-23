@@ -38,6 +38,14 @@ public class UniversidadService {
 		return this.universidadRepository.save(u);
 	}
 	
+	public Universidad edit(Long idUniversidad, Universidad universidad) {
+		Universidad uni = this.findOne(idUniversidad);
+		uni.setNombre(universidad.getNombre());
+		
+		Universidad saved = this.save(uni);
+		return saved;
+	}
+	
 	public void delete(final Universidad universidad) {
 		this.universidadRepository.delete(universidad);
 	}

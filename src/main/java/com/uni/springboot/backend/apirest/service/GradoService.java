@@ -41,6 +41,11 @@ public class GradoService{
 		return this.gradoRepository.findGradoId(nombreGrado);
 	}
 	
+	public Collection<Grado> getGradosPorFacultad(Long facultadId){
+		return this.gradoRepository.getGradosPorFacultad(facultadId);
+	}
+
+	
 	
 	public Grado save(final Grado c) { 
 		return this.gradoRepository.save(c);	
