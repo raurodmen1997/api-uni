@@ -115,7 +115,7 @@ public class FacultadController {
 	}
 	
 	//---EDITAR FACULTAD---
-	@PutMapping("/editar/{idFacultad}")
+	@PutMapping("/{idFacultad}")
 	public ResponseEntity<?> modificarFacultad(@PathVariable Long idFacultad, 
 			@Valid @RequestBody Facultad facultad, BindingResult result) throws Exception {
 		Map<String, Object> response = new HashMap<String, Object>();

@@ -40,11 +40,6 @@ public class GradoController{
 	@Autowired
 	private GradoService gradoService;
 	
-	@Autowired
-	private AsignaturaService asignaturaService;
-	
-	@Autowired
-	private CursoService cursoService;
 	
 	@Autowired
 	private FacultadService facultadService;
@@ -108,7 +103,7 @@ public class GradoController{
 	}
 	
 	//---EDITAR GRADO---
-	@PutMapping("/editar/{idGrado}")
+	@PutMapping("/{idGrado}")
 	public ResponseEntity<?> modificarGrado(@PathVariable Long idGrado, 
 			@Valid @RequestBody Grado grado, BindingResult result) throws Exception {
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -168,68 +163,7 @@ public class GradoController{
 		response.put("mensaje", "El grado ha sido borrado con exito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
-	@GetMapping("/asignaturasPorGrado")
-	public ResponseEntity<?> asignaturasPorGrado(@RequestParam Long gradoId){
-		Map<String, Object> response = new HashMap<String, Object>();
-		Collection<Asignatura> asignaturasPorGrado = null;
-		Grado grado = this.gradoService.findOne(gradoId);
-		
-		if(grado == null) {
-			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" no existe"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		try {
-			asignaturasPorGrado = this.asignaturaService.getAsignaturasPorGrado(gradoId);
-		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
-		}
-		
-		if(asignaturasPorGrado.isEmpty()) {
-			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" no tiene asignaturas"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		return new ResponseEntity<Collection<Asignatura>>(asignaturasPorGrado, HttpStatus.OK);
-		
-	}
-	
-	@GetMapping("/asignaturasPorGradoYCurso")
-	public ResponseEntity<?> asignaturasPorGrado(@RequestParam Long gradoId, @RequestParam Long cursoId){
-		Map<String, Object> response = new HashMap<String, Object>();
-		Collection<Asignatura> asignaturasPorGradoYCurso = null;
-		Grado grado = this.gradoService.findOne(gradoId);
-		Curso curso = this.cursoService.findOne(cursoId);
-		
-		if(grado == null) {
-			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" no existe"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		if(curso == null) {
-			response.put("mensaje",	 "El curso con ID: ".concat(cursoId.toString()).concat(" no existe"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		try {
-			asignaturasPorGradoYCurso = this.asignaturaService.getAsignaturasPorGradoYCurso(gradoId, cursoId);
-		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
-		}
-		
-		if(asignaturasPorGradoYCurso.isEmpty()) {
-			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" y curso con ID: ").concat(cursoId.toString()).concat(" no tiene asignaturas"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		return new ResponseEntity<Collection<Asignatura>>(asignaturasPorGradoYCurso, HttpStatus.OK);
-		
-	}
+
 	
 	@GetMapping("/gradosPorFacultad")
 	public ResponseEntity<?> gradosPorFacultad(@RequestParam Long facultadId){

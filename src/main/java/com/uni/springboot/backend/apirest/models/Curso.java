@@ -31,7 +31,7 @@ public class Curso implements Serializable{
 
 	@NotEmpty
 	@Column(nullable = false)
-	@Pattern(regexp = "PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO")
+	@Pattern(regexp = "PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO", message="solo puede tomar los siguientes valores: PRIMERO, SEGUNDO, TERCERO, CUARTO, QUINTO o SEXTO")
 	private String nombre;
 
 	
