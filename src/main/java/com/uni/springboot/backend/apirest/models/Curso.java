@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 
 @Entity(name = "cursos")
@@ -30,6 +31,7 @@ public class Curso implements Serializable{
 
 	@NotEmpty
 	@Column(nullable = false)
+	@Pattern(regexp = "PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO")
 	private String nombre;
 
 	

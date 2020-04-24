@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Asignatura;
+import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.models.TipoAsignatura;
 import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.AsignaturaService;
@@ -85,7 +87,7 @@ public class AsignaturaController {
 		return new ResponseEntity<Asignatura>(asignatura, HttpStatus.OK);
 	}
 	
-	
+	//---CREAR ASIGNATURA---
 	@PostMapping("")
 	public ResponseEntity<?> create(@Valid @RequestBody Asignatura asignatura, BindingResult result){
 		Asignatura asignaturaNew = null;
@@ -112,6 +114,46 @@ public class AsignaturaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	//---EDITAR ASIGNATURA---
+	@PutMapping("/editar/{idAsignatura}")
+	public ResponseEntity<?> modificarAsignatura(@PathVariable Long idAsignatura, 
+			@Valid @RequestBody Asignatura asignatura, BindingResult result) throws Exception {
+		Map<String, Object> response = new HashMap<String, Object>();
+		Asignatura asignaturaEditada = null;
+		Asignatura a = this.asignaturaService.findOne(idAsignatura);
+		
+		if(a == null) {
+			response.put("mensaje",	 "La asignatura cuyo ID es '".concat(idAsignatura.toString()).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		if(result.hasErrors()) {
+			List<String> errores = result.getFieldErrors().stream()
+				.map(err -> "Error en el campo '" + err.getField() + "': " + err.getDefaultMessage())
+				.collect(Collectors.toList());
+			response.put("errores", errores);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST); 
+		}
+		
+		try {
+			asignaturaEditada = this.asignaturaService.edit(idAsignatura, asignatura);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+				
+		}catch(Exception e) {
+			response.put("mensaje", " Ha ocurrido un error:");
+			response.put("error", e.getMessage());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+				
+		}
+		
+		return new ResponseEntity<Asignatura>(asignaturaEditada ,HttpStatus.CREATED); 
+		
+	}
+	
+	//---BORRAR ASIGNATURA---
 	@DeleteMapping("/{asignaturaId}")
 	public ResponseEntity<?> eliminarAsignatura(@PathVariable Long asignaturaId){
 		Map<String, Object> response = new HashMap<String, Object>();

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Grado;
+import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.repository.GradoRepository;
 
 @Service
@@ -44,11 +45,19 @@ public class GradoService{
 	public Collection<Grado> getGradosPorFacultad(Long facultadId){
 		return this.gradoRepository.getGradosPorFacultad(facultadId);
 	}
-
-	
 	
 	public Grado save(final Grado c) { 
 		return this.gradoRepository.save(c);	
+	}
+	
+	public Grado edit(Long idGrado, Grado grado) {
+		Grado g = this.findOne(idGrado);
+		g.setNombre(grado.getNombre());
+		g.setFacultad(grado.getFacultad());
+		g.setNumerocursos(grado.getNumerocursos());
+		
+		Grado saved = this.save(g);
+		return saved;
 	}
 	
 	public void delete(final Grado c) {

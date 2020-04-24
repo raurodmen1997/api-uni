@@ -41,6 +41,20 @@ public class AsignaturaService {
 		return this.asignaturaRepository.save(a);	
 	}
 	
+	public Asignatura edit(Long idAsignatura, Asignatura asignatura) {
+		Asignatura a = this.findOne(idAsignatura);
+		
+		a.setCodigo(asignatura.getCodigo());
+		a.setCreditos(asignatura.getCreditos());
+		a.setCurso(asignatura.getCurso());
+		a.setGrado(asignatura.getGrado());
+		a.setNombre(asignatura.getNombre());
+		a.setTipo(asignatura.getTipo());
+		
+		Asignatura saved = this.save(a);
+		return saved;
+	}
+	
 	public void delete(final Asignatura a) {
 		this.asignaturaRepository.delete(a);
 	}
