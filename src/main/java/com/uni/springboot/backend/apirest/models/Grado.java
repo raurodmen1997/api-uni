@@ -27,7 +27,7 @@ public class Grado implements Serializable{
 	private Long id;
 	
 	@NotEmpty
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String nombre;
 	
 	@Valid
