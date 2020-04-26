@@ -28,12 +28,12 @@ public class AsignaturaService {
 		return this.asignaturaRepository.getAsignaturaPorNombre(nombre);
 	}
 	
-	public Collection<Asignatura> getAsignaturasPorGrado(Long idGrado){
-		return this.asignaturaRepository.getAsignaturasPorGrado(idGrado);
+	public Collection<Asignatura> getAsignaturasPorGrado(String nombreGrado){
+		return this.asignaturaRepository.getAsignaturasPorGrado(nombreGrado);
 	}
 	
-	public Collection<Asignatura> getAsignaturasPorGradoYCurso(Long idGrado, Long idCurso){
-		return this.asignaturaRepository.getAsignaturasPorGradoYCurso(idGrado, idCurso);
+	public Collection<Asignatura> getAsignaturasPorGradoYCurso(String nombreGrado, String nombreCurso){
+		return this.asignaturaRepository.getAsignaturasPorGradoYCurso(nombreGrado, nombreCurso);
 	}
 	
 	

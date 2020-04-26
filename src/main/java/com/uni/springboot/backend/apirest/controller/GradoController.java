@@ -89,7 +89,7 @@ public class GradoController{
 		
 		
 		if(grados == null) {
-			response.put("mensaje",	 "El grado, cuyo identificador es '".concat(nombre).concat("', no existe."));
+			response.put("mensaje",	 "El grado, cuyo nombre es '".concat(nombre).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
