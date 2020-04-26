@@ -7,9 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Grado;
-import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.repository.GradoRepository;
 
 @Service
@@ -18,8 +16,6 @@ public class GradoService{
 	@Autowired
 	private GradoRepository gradoRepository;
 	
-	@Autowired
-	private AsignaturaService asignaturaService;
 	
 	public Grado create() {
 		final Grado res = new Grado();
@@ -43,7 +39,7 @@ public class GradoService{
 		return this.gradoRepository.findGradoId(nombreGrado);
 	}
 	
-	public Collection<Grado> findGradoNombre(String nombre){
+	public Grado findGradoNombre(String nombre){
 		return this.gradoRepository.findGradoNombre(nombre);
 	}
 	

@@ -13,7 +13,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Curso;
 import com.uni.springboot.backend.apirest.models.Grado;
-import com.uni.springboot.backend.apirest.models.TipoAsignatura;
-import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.AsignaturaService;
 import com.uni.springboot.backend.apirest.service.CursoService;
 import com.uni.springboot.backend.apirest.service.GradoService;
@@ -209,7 +206,7 @@ public class AsignaturaController {
 	public ResponseEntity<?> asignaturasPorGrado(@RequestParam String nombreGrado){
 		Map<String, Object> response = new HashMap<String, Object>();
 		Collection<Asignatura> asignaturasPorGrado = null;
-		Collection<Grado> grado = this.gradoService.findGradoNombre(nombreGrado);
+		Grado grado = this.gradoService.findGradoNombre(nombreGrado);
 		
 		if(grado == null) {
 			response.put("mensaje",	 "El grado con nombre: ".concat(nombreGrado).concat(" no existe."));
@@ -237,7 +234,7 @@ public class AsignaturaController {
 	public ResponseEntity<?> asignaturasPorGrado(@RequestParam String nombreGrado, @RequestParam String nombreCurso){
 		Map<String, Object> response = new HashMap<String, Object>();
 		Collection<Asignatura> asignaturasPorGradoYCurso = null;
-		Collection<Grado> grado = this.gradoService.findGradoNombre(nombreGrado);
+		Grado grado = this.gradoService.findGradoNombre(nombreGrado);
 		Curso curso = this.cursoService.findPorNombre(nombreCurso);
 		
 		if(grado == null) {

@@ -1,6 +1,5 @@
 package com.uni.springboot.backend.apirest.controller;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Facultad;
-import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.FacultadService;
 
 @RestController
@@ -84,7 +81,7 @@ public class FacultadController {
 	
 	@GetMapping("/nombre")
 	public ResponseEntity<?> findByName(@RequestParam String nombre){
-		Collection<Facultad> facultad = null;
+		Facultad facultad = null;
 		Map<String, Object> response = new HashMap<String, Object>();
 		
 		try {
@@ -100,7 +97,7 @@ public class FacultadController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
-		return new ResponseEntity<Collection<Facultad>>(facultad, HttpStatus.OK);
+		return new ResponseEntity<Facultad>(facultad, HttpStatus.OK);
 		
 	}
 	

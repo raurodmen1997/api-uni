@@ -1,6 +1,5 @@
 package com.uni.springboot.backend.apirest.repository;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +21,5 @@ public interface FacultadRepository extends JpaRepository<Facultad, Long>{
 	*/
 	
 	@Query("select f from facultades f where f.nombre=?1")
-	Collection<Facultad> findByName(String name);
+	Facultad findByName(String name);
 }

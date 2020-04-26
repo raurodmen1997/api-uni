@@ -23,13 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uni.springboot.backend.apirest.models.Asignatura;
-import com.uni.springboot.backend.apirest.models.Curso;
 import com.uni.springboot.backend.apirest.models.Facultad;
 import com.uni.springboot.backend.apirest.models.Grado;
-import com.uni.springboot.backend.apirest.models.Universidad;
-import com.uni.springboot.backend.apirest.service.AsignaturaService;
-import com.uni.springboot.backend.apirest.service.CursoService;
 import com.uni.springboot.backend.apirest.service.FacultadService;
 import com.uni.springboot.backend.apirest.service.GradoService;
 
@@ -93,11 +88,11 @@ public class GradoController{
 	
 	@GetMapping("/nombre")
 	public ResponseEntity<?> findOne(@RequestParam String nombre){
-		Collection<Grado> grados = null;
+		Grado grado = null;
 		Map<String, Object> response = new HashMap<String, Object>();
 		
 		try {
-			grados = this.gradoService.findGradoNombre(nombre);
+			grado = this.gradoService.findGradoNombre(nombre);
 		}catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -105,13 +100,13 @@ public class GradoController{
 		}
 		
 		
-		if(grados == null) {
+		if(grado == null) {
 			response.put("mensaje",	 "El grado, cuyo nombre es '".concat(nombre).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
 		
-		return new ResponseEntity<Collection<Grado>>(grados, HttpStatus.OK);
+		return new ResponseEntity<Grado>(grado, HttpStatus.OK);
 		
 	}
 	
@@ -210,7 +205,7 @@ public class GradoController{
 	public ResponseEntity<?> gradosPorFacultad(@RequestParam String nombre){
 		Map<String, Object> response = new HashMap<String, Object>();
 		Collection<Grado> gradosPorFacultad = null;
-		Collection<Facultad> facultad = this.facultadService.findByName(nombre);
+		Facultad facultad = this.facultadService.findByName(nombre);
 		
 		if(facultad == null) {
 			response.put("mensaje",	 "La facultad con nombre: ".concat(nombre).concat(" no existe."));

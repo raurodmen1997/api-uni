@@ -22,7 +22,7 @@ public interface GradoRepository extends JpaRepository<Grado, Long> {
 	Long findGradoId(String nombre);
 	
 	@Query("select g from grados g where g.nombre=?1")
-	Collection<Grado> findGradoNombre(String nombre);
+	Grado findGradoNombre(String nombre);
 	
 	
 	@Query("select g from grados g where g.facultad.nombre=?1")
