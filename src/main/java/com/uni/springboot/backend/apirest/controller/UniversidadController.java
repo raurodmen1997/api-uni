@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Facultad;
+import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.UniversidadService;
 
@@ -36,8 +37,25 @@ public class UniversidadController {
 	private UniversidadService universidadService;
 	
 	@GetMapping("")
-	public List<Universidad> findAll(){
-		return this.universidadService.findAll();
+	public ResponseEntity<?> findAll(){
+		List<Universidad> universidades = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try {
+			universidades = this.universidadService.findAll();
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		if(universidades.isEmpty()) {
+			response.put("resultado", universidades);
+			response.put("mensaje",	 "No se han encontrado universidades.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
+		
+		return new ResponseEntity<List<Universidad>>(universidades, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
@@ -48,7 +66,7 @@ public class UniversidadController {
 		try {
 			uni = this.universidadService.findOne(id);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
@@ -71,7 +89,7 @@ public class UniversidadController {
 		try {
 			uni = this.universidadService.findByName(nombre);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
@@ -136,7 +154,7 @@ public class UniversidadController {
 		try {
 			universidadEditada = this.universidadService.edit(idUniverisdad, universidad);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 				
@@ -159,19 +177,19 @@ public class UniversidadController {
 		Universidad  universidad = this.universidadService.findOne(universidadId);
 		
 		if(universidad == null) {
-			response.put("mensaje",	 "La universidad con ID: ".concat(universidadId.toString()).concat(" no existe"));
+			response.put("mensaje",	 "La universidad con ID: ".concat(universidadId.toString()).concat(" no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
 		try {
 			this.universidadService.delete(universidad);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error en la base de datos");
+			response.put("mensaje", "Error en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 		
-		response.put("mensaje", "La universidad ha sido borrado con exito");
+		response.put("mensaje", "La universidad ha sido borrado con exito.");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	

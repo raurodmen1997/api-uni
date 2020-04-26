@@ -36,8 +36,25 @@ public class FacultadController {
 	private FacultadService facultadService;
 	
 	@GetMapping("")
-	public List<Facultad> findAll(){
-		return this.facultadService.findAll();
+	public ResponseEntity<?> findAll(){
+		List<Facultad> facultades = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try {
+			facultades = this.facultadService.findAll();
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		if(facultades.isEmpty()) {
+			response.put("resultado", facultades);
+			response.put("mensaje",	 "No se han encontrado facultades.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
+		
+		return new ResponseEntity<List<Facultad>>(facultades, HttpStatus.OK);
 		
 	}
 	
@@ -49,7 +66,7 @@ public class FacultadController {
 		try {
 			facultad = this.facultadService.findOne(id);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
@@ -73,7 +90,7 @@ public class FacultadController {
 		try {
 			facultad = this.facultadService.findByName(nombre);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
@@ -139,7 +156,7 @@ public class FacultadController {
 		try {
 			facultadEditada = this.facultadService.edit(idFacultad, facultad);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos");
+			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 				
@@ -161,19 +178,19 @@ public class FacultadController {
 		Facultad  facultad = this.facultadService.findOne(facultadId);
 		
 		if(facultad == null) {
-			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no existe"));
+			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
 		try {
 			this.facultadService.delete(facultad);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error en la base de datos");
+			response.put("mensaje", "Error en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 		
-		response.put("mensaje", "La facultad ha sido borrado con exito");
+		response.put("mensaje", "La facultad ha sido borrado con exito.");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
