@@ -27,13 +27,17 @@ public class FacultadService {
 		return this.facultadRepository.findFacuUni(universidad);
 	}
 	
+	/*
 	public Long findFacuId(String nombreFacu) {
 		return this.facultadRepository.findFacuId(nombreFacu);
 	}
+	*/
+	
 	
 	public Facultad findByName(String name) {
 		return this.facultadRepository.findByName(name);
 	}
+	
 	
 	public Facultad save(final Facultad c) { 
 		return this.facultadRepository.save(c);	

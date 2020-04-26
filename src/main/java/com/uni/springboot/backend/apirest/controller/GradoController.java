@@ -194,6 +194,7 @@ public class GradoController{
 	}
 	
 	
+	/*
 	@GetMapping("/gradoId")
 	public ResponseEntity<?> findGradoId(@RequestParam String nombreGrado){
 		Long gradoId = null;
@@ -215,6 +216,7 @@ public class GradoController{
 		return new ResponseEntity<Long>(gradoId, HttpStatus.OK);
 		
 	}
+	*/
 	
 	@GetMapping("/busquedaGrados")
 	public List<Grado> findGradoFacu(@RequestParam String universidad,

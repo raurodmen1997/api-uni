@@ -248,7 +248,7 @@ public class AsignaturaController {
 		
 	}
 	
-	/*
+	
 	
 	@GetMapping("/busquedaAsignaturas")
 	public List<Asignatura> findListaAsignatura(@RequestParam String universidad, 
@@ -256,5 +256,6 @@ public class AsignaturaController {
 			@RequestParam String grado,
 			@RequestParam String curso){
 		return this.asignaturaService.findListaAsignaturas(universidad, facultad, grado, curso);
-	}*/
+	}
+	
 }
