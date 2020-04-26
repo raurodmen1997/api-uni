@@ -59,18 +59,8 @@ public class AsignaturaService {
 		this.asignaturaRepository.delete(a);
 	}
 	
-	/*public List<Asignatura> findListaAsignaturas(String universidad, 
+	public List<Asignatura> findListaAsignaturas(String universidad, 
 			String facultad, String grado, String curso){
 		return this.asignaturaRepository.findListaAsignaturas(universidad, facultad, grado, curso);
 	}
-
-	public Asignatura save(final Asignatura a) {
-		return this.asignaturaRepository.save(a);
-	}
-	
-	
-	public void delete(Long id) {
-		this.asignaturaRepository.deleteById(id);
-	}*/
-
 }

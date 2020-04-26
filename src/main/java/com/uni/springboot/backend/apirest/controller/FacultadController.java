@@ -178,11 +178,13 @@ public class FacultadController {
 	
 	
 	
-	@GetMapping("/busquedaFacultades")
-	public List<Facultad> findFacuUni(@RequestParam String universidad){
-		return this.facultadService.findFacuUni(universidad);
+	@GetMapping("/universidad")
+	public List<Facultad> findFacuUni(@RequestParam String nombre){
+		return this.facultadService.findFacuUni(nombre);
 	}
 	
+	
+	/*
 	@GetMapping("/facuId")
 	public ResponseEntity<?> findFacuId(@RequestParam String nombreFacu){
 		Long facultadId = null;
@@ -205,5 +207,6 @@ public class FacultadController {
 		
 	}
 
+*/
 	
 }

@@ -38,9 +38,11 @@ public class GradoService{
 		return this.gradoRepository.findById(gradoId).orElse(null);
 	}
 	
+	
 	public Long findGradoId(String nombreGrado) {
 		return this.gradoRepository.findGradoId(nombreGrado);
 	}
+	
 	
 	public Collection<Grado> getGradosPorFacultad(Long facultadId){
 		return this.gradoRepository.getGradosPorFacultad(facultadId);
