@@ -24,7 +24,7 @@ public class AsignaturaService {
 		return this.asignaturaRepository.findById(asignaturaId).orElse(null);
 	}
 	
-	public Asignatura getAsignaturaPorNombre(String nombre) {
+	public Collection<Asignatura> getAsignaturaPorNombre(String nombre) {
 		return this.asignaturaRepository.getAsignaturaPorNombre(nombre);
 	}
 	

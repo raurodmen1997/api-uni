@@ -43,6 +43,10 @@ public class GradoService{
 		return this.gradoRepository.findGradoId(nombreGrado);
 	}
 	
+	public Collection<Grado> findGradoNombre(String nombre){
+		return this.gradoRepository.findGradoNombre(nombre);
+	}
+	
 	
 	public Collection<Grado> getGradosPorFacultad(Long facultadId){
 		return this.gradoRepository.getGradosPorFacultad(facultadId);

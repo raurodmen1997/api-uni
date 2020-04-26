@@ -74,6 +74,30 @@ public class GradoController{
 		
 	}
 	
+	@GetMapping("/nombre")
+	public ResponseEntity<?> findOne(@RequestParam String nombre){
+		Collection<Grado> grados = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try {
+			grados = this.gradoService.findGradoNombre(nombre);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		
+		if(grados == null) {
+			response.put("mensaje",	 "El grado, cuyo identificador es '".concat(nombre).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+		
+		
+		return new ResponseEntity<Collection<Grado>>(grados, HttpStatus.OK);
+		
+	}
+	
 	
 	//---CREAR GRADO---
 	@PostMapping("")

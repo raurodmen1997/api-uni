@@ -1,5 +1,6 @@
 package com.uni.springboot.backend.apirest.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class FacultadController {
 	
 	@GetMapping("/nombre")
 	public ResponseEntity<?> findByName(@RequestParam String nombre){
-		Facultad facultad = null;
+		Collection<Facultad> facultad = null;
 		Map<String, Object> response = new HashMap<String, Object>();
 		
 		try {
@@ -82,7 +83,7 @@ public class FacultadController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
-		return new ResponseEntity<Facultad>(facultad, HttpStatus.OK);
+		return new ResponseEntity<Collection<Facultad>>(facultad, HttpStatus.OK);
 		
 	}
 	

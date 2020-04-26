@@ -1,5 +1,6 @@
 package com.uni.springboot.backend.apirest.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class FacultadService {
 	*/
 	
 	
-	public Facultad findByName(String name) {
+	public Collection<Facultad> findByName(String name) {
 		return this.facultadRepository.findByName(name);
 	}
 	

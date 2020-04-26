@@ -78,7 +78,7 @@ public class AsignaturaController {
 	
 	@GetMapping("/nombre")
 	public ResponseEntity<?> getAsignaturaPorNombre(@RequestParam String nombre){
-		Asignatura asignatura = null;
+		Collection<Asignatura> asignatura = null;
 		Map<String, Object> response = new HashMap<String, Object>();
 		
 		try {
@@ -94,7 +94,7 @@ public class AsignaturaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
-		return new ResponseEntity<Asignatura>(asignatura, HttpStatus.OK);
+		return new ResponseEntity<Collection<Asignatura>>(asignatura, HttpStatus.OK);
 	}
 	
 	//---CREAR ASIGNATURA---
