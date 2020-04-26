@@ -25,8 +25,8 @@ public interface GradoRepository extends JpaRepository<Grado, Long> {
 	Collection<Grado> findGradoNombre(String nombre);
 	
 	
-	@Query("select g from grados g where g.facultad.id=?1")
-	Collection<Grado> getGradosPorFacultad(Long facultadId);
+	@Query("select g from grados g where g.facultad.nombre=?1")
+	Collection<Grado> getGradosPorFacultad(String nombreFacultad);
 	
 	
 }

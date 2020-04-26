@@ -189,19 +189,19 @@ public class GradoController{
 	}
 
 	
-	@GetMapping("/gradosPorFacultad")
-	public ResponseEntity<?> gradosPorFacultad(@RequestParam Long facultadId){
+	@GetMapping("/facultad")
+	public ResponseEntity<?> gradosPorFacultad(@RequestParam String nombre){
 		Map<String, Object> response = new HashMap<String, Object>();
 		Collection<Grado> gradosPorFacultad = null;
-		Facultad facultad = this.facultadService.findOne(facultadId);
+		Collection<Facultad> facultad = this.facultadService.findByName(nombre);
 		
 		if(facultad == null) {
-			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no existe"));
+			response.put("mensaje",	 "La facultad con nombre: ".concat(nombre).concat(" no existe"));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
 		try {
-			gradosPorFacultad = this.gradoService.getGradosPorFacultad(facultadId);
+			gradosPorFacultad = this.gradoService.getGradosPorFacultad(nombre);
 		}catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -209,7 +209,7 @@ public class GradoController{
 		}
 		
 		if(gradosPorFacultad.isEmpty()) {
-			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no tiene grados disponibles"));
+			response.put("mensaje",	 "La facultad con nombre: ".concat(nombre).concat(" no tiene grados disponibles"));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		

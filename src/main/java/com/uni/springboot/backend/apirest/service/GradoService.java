@@ -48,8 +48,8 @@ public class GradoService{
 	}
 	
 	
-	public Collection<Grado> getGradosPorFacultad(Long facultadId){
-		return this.gradoRepository.getGradosPorFacultad(facultadId);
+	public Collection<Grado> getGradosPorFacultad(String nombreFacultad){
+		return this.gradoRepository.getGradosPorFacultad(nombreFacultad);
 	}
 	
 	public Grado save(final Grado c) { 
