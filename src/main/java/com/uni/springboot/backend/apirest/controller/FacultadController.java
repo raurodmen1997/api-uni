@@ -138,7 +138,7 @@ public class FacultadController {
 		Facultad f = this.facultadService.findOne(idFacultad);
 		
 		if(f == null) {
-			response.put("mensaje",	 "La facultad, cuyo ID es '".concat(idFacultad.toString()).concat("', no existe."));
+			response.put("mensaje",	 "La facultad, cuyo identificador es '".concat(idFacultad.toString()).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
@@ -164,7 +164,9 @@ public class FacultadController {
 				
 		}
 		
-		return new ResponseEntity<Facultad>(facultadEditada ,HttpStatus.CREATED); 
+		response.put("mensaje", "La facultad ha sido editada con éxito.");
+		response.put("Facultad", facultadEditada);
+		return new ResponseEntity<Map<String, Object>>(response ,HttpStatus.CREATED); 
 		
 	}
 	
@@ -175,7 +177,7 @@ public class FacultadController {
 		Facultad  facultad = this.facultadService.findOne(facultadId);
 		
 		if(facultad == null) {
-			response.put("mensaje",	 "La facultad con ID: ".concat(facultadId.toString()).concat(" no existe."));
+			response.put("mensaje",	 "La facultad cuyo identificador es '".concat(facultadId.toString()).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		

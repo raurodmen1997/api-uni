@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uni.springboot.backend.apirest.models.Facultad;
-import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.UniversidadService;
 
@@ -139,7 +137,7 @@ public class UniversidadController {
 		Universidad uni = this.universidadService.findOne(idUniverisdad);
 		
 		if(uni == null) {
-			response.put("mensaje",	 "La universidad, cuyo ID es '".concat(idUniverisdad.toString()).concat("', no existe."));
+			response.put("mensaje",	 "La universidad, cuyo identificador es '".concat(idUniverisdad.toString()).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
@@ -165,7 +163,9 @@ public class UniversidadController {
 				
 		}
 		
-		return new ResponseEntity<Universidad>(universidadEditada ,HttpStatus.CREATED); 
+		response.put("mensaje", "La universidad ha sido editada con éxito.");
+		response.put("Universidad", universidadEditada);
+		return new ResponseEntity<Map<String, Object>>(response ,HttpStatus.CREATED); 
 		
 	}
 	
@@ -177,7 +177,7 @@ public class UniversidadController {
 		Universidad  universidad = this.universidadService.findOne(universidadId);
 		
 		if(universidad == null) {
-			response.put("mensaje",	 "La universidad con ID: ".concat(universidadId.toString()).concat(" no existe."));
+			response.put("mensaje",	 "La universidad cuyo identificador es: ".concat(universidadId.toString()).concat(" no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
