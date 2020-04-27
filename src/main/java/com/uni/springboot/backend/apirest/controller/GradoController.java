@@ -147,7 +147,7 @@ public class GradoController{
 		Grado g = this.gradoService.findOne(idGrado);
 		
 		if(g == null) {
-			response.put("mensaje",	 "El grado, cuyo ID es '".concat(idGrado.toString()).concat("', no existe."));
+			response.put("mensaje",	 "El grado, cuyo identificador es '".concat(idGrado.toString()).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
@@ -173,7 +173,9 @@ public class GradoController{
 				
 		}
 		
-		return new ResponseEntity<Grado>(gradoEditado ,HttpStatus.CREATED); 
+		response.put("mensaje", "El grado ha sido editado con éxito.");
+		response.put("Grado", gradoEditado);
+		return new ResponseEntity<Map<String, Object>>(response ,HttpStatus.CREATED); 
 		
 	}
 	
@@ -184,7 +186,7 @@ public class GradoController{
 		Grado  grado = this.gradoService.findOne(gradoId);
 		
 		if(grado == null) {
-			response.put("mensaje",	 "El grado con ID: ".concat(gradoId.toString()).concat(" no existe."));
+			response.put("mensaje",	 "El grado cuyo identificador es '".concat(gradoId.toString()).concat("' no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
@@ -208,7 +210,7 @@ public class GradoController{
 		Facultad facultad = this.facultadService.findByName(nombre);
 		
 		if(facultad == null) {
-			response.put("mensaje",	 "La facultad con nombre: ".concat(nombre).concat(" no existe."));
+			response.put("mensaje",	 "La facultad cuyo nombre es '".concat(nombre).concat("' no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		
@@ -221,7 +223,7 @@ public class GradoController{
 		}
 		
 		if(gradosPorFacultad.isEmpty()) {
-			response.put("mensaje",	 "La facultad con nombre: ".concat(nombre).concat(" no tiene grados disponibles."));
+			response.put("mensaje",	 "La facultad cuyo nombre es '".concat(nombre).concat("' no tiene grados disponibles."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
 		

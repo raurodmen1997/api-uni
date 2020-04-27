@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Curso;
-import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.CursoService;
-import com.uni.springboot.backend.apirest.service.GradoService;
 
 @RestController
 @RequestMapping("/api/cursos")
@@ -26,8 +24,6 @@ public class CursoController {
 	
 	@Autowired
 	private CursoService cursoService;
-	@Autowired
-	private GradoService gradoService;
 	
 	
 	@GetMapping("")
