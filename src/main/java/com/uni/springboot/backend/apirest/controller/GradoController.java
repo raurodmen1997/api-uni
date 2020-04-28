@@ -232,7 +232,7 @@ public class GradoController{
 		
 		if(gradosPorFacultad.isEmpty()) {
 			response.put("mensaje",	 "La facultad cuyo nombre es '".concat(nombre).concat("' no tiene grados disponibles."));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
 		}
 		
 		return new ResponseEntity<Collection<Grado>>(gradosPorFacultad, HttpStatus.OK);
@@ -268,6 +268,11 @@ public class GradoController{
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 		
+		if(grados.isEmpty()) {
+			response.put("mensaje",	 "La universidad cuyo nombre es '".concat(universidad)
+					.concat("'y la facultad cuyo nombre es '").concat(facultad).concat("',  no tiene grados disponibles"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
 		
 		
 		return new ResponseEntity<List<Grado>>(grados, HttpStatus.OK);

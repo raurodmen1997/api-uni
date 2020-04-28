@@ -235,7 +235,7 @@ public class AsignaturaController {
 		
 		if(asignaturasPorGrado.isEmpty()) {
 			response.put("mensaje",	 "El grado cuyo nombre es '".concat(nombre).concat("' no tiene asignaturas disponibles."));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
 		}
 		
 		return new ResponseEntity<Collection<Asignatura>>(asignaturasPorGrado, HttpStatus.OK);
@@ -269,7 +269,7 @@ public class AsignaturaController {
 		
 		if(asignaturasPorGradoYCurso.isEmpty()) {
 			response.put("mensaje",	 "El grado cuyo nombre es '".concat(nombreGrado).concat("' y curso '").concat(nombreCurso).concat("' no tiene asignaturas."));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
 		}
 		
 		return new ResponseEntity<Collection<Asignatura>>(asignaturasPorGradoYCurso, HttpStatus.OK);
@@ -308,7 +308,8 @@ public class AsignaturaController {
 			response.put("mensaje",	 "El curso, cuyo nombre es '".concat(curso).concat("', no existe."));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
 		}
-				
+		
+		
 		
 		try {
 			asignaturas = this.asignaturaService.findListaAsignaturas(universidad, facultad, grado, curso);
@@ -318,7 +319,12 @@ public class AsignaturaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 		
-		
+		if(asignaturas.isEmpty()) {
+			response.put("mensaje",	 "La universidad cuyo nombre es '".concat(universidad)
+					.concat("', la facultad cuyo nombre es '").concat(facultad).concat("', el grado cuyo nombre es '").concat(grado).concat("' y curso '")
+					.concat(curso).concat("' no tiene asignaturas disponibles."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
 		
 		return new ResponseEntity<List<Asignatura>>(asignaturas, HttpStatus.OK);
 	}

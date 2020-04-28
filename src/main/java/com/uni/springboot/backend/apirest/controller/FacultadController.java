@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uni.springboot.backend.apirest.models.Curso;
 import com.uni.springboot.backend.apirest.models.Facultad;
 import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.FacultadService;
@@ -226,7 +225,10 @@ public class FacultadController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 		
-		
+		if(facultades.isEmpty()) {
+			response.put("mensaje",	 "La universidad, cuyo nombre es '".concat(nombre).concat("', no tiene facultades disponibles."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
 		
 		return new ResponseEntity<List<Facultad>>(facultades, HttpStatus.OK);
 	}
