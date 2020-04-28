@@ -117,9 +117,13 @@ public class UniversidadController {
 		try {
 			uniNew = this.universidadService.save(universidad);
 		}catch(DataAccessException e) {
+			if(e.getCause().getCause().getMessage().contains("Duplicate entry")) {
+				response.put("mensaje", "Error al realizar el insert en la base de datos.");
+				response.put("error", "Nombre de la universidad duplicado.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+			}
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			//response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
 	
