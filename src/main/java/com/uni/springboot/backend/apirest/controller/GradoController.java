@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Facultad;
 import com.uni.springboot.backend.apirest.models.Grado;
+import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.FacultadService;
 import com.uni.springboot.backend.apirest.service.GradoService;
+import com.uni.springboot.backend.apirest.service.UniversidadService;
 
 @RestController
 @RequestMapping("/api/grados")
@@ -34,10 +36,11 @@ public class GradoController{
 	
 	@Autowired
 	private GradoService gradoService;
-	
-	
+	@Autowired
+	private UniversidadService universidadService;
 	@Autowired
 	private FacultadService facultadService;
+	
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){
@@ -128,6 +131,11 @@ public class GradoController{
 		try {
 			gradoNew = this.gradoService.save(grado);
 		}catch(DataAccessException e) {
+			if(e.getCause().getCause().getMessage().contains("Duplicate entry")) {
+				response.put("mensaje", "Error al realizar el insert en la base de datos.");
+				response.put("error", "Nombre del grado duplicado.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+			}
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -233,9 +241,36 @@ public class GradoController{
 	
 	
 	@GetMapping("/busquedaGrados")
-	public List<Grado> findGradoFacu(@RequestParam String universidad,
-			@RequestParam String facultad){
-		return this.gradoService.findGradoFacu(universidad, facultad);
+	public ResponseEntity<?> findGradoFacu(@RequestParam String universidad,
+			@RequestParam String facultad){	
+		Universidad uni = null;
+		Facultad facul = null;
+		List<Grado> grados = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		uni = this.universidadService.findByName(universidad);
+		facul = this.facultadService.findByName(facultad);
+		
+		if(uni == null) {
+			response.put("mensaje",	 "La universidad, cuyo nombre es '".concat(universidad).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}else if(facul == null) {
+			response.put("mensaje",	 "La facultad, cuyo nombre es '".concat(facultad).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+				
+		
+		try {
+			grados = this.gradoService.findGradoFacu(universidad, facultad);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		
+		
+		return new ResponseEntity<List<Grado>>(grados, HttpStatus.OK);
 	}
 	
 	/*

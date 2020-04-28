@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uni.springboot.backend.apirest.models.Curso;
 import com.uni.springboot.backend.apirest.models.Facultad;
+import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.FacultadService;
+import com.uni.springboot.backend.apirest.service.UniversidadService;
 
 @RestController
 @RequestMapping("/api/facultades")
@@ -31,6 +34,8 @@ public class FacultadController {
 
 	@Autowired
 	private FacultadService facultadService;
+	@Autowired
+	private UniversidadService universidadService;
 	
 	@GetMapping("")
 	public ResponseEntity<?> findAll(){
@@ -119,6 +124,11 @@ public class FacultadController {
 		try {
 			facultadNew = this.facultadService.save(facultad);
 		}catch(DataAccessException e) {
+			if(e.getCause().getCause().getMessage().contains("Duplicate entry")) {
+				response.put("mensaje", "Error al realizar el insert en la base de datos.");
+				response.put("error", "Nombre de la facultad duplicado.");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+			}
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -196,8 +206,29 @@ public class FacultadController {
 	
 	
 	@GetMapping("/universidad")
-	public List<Facultad> findFacuUni(@RequestParam String nombre){
-		return this.facultadService.findFacuUni(nombre);
+	public ResponseEntity<?> findFacuUni(@RequestParam String nombre){	
+		Universidad universidad = null;
+		List<Facultad> facultades = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		universidad = this.universidadService.findByName(nombre);
+		
+		if(universidad == null) {
+			response.put("mensaje",	 "La universidad, cuyo nombre es '".concat(nombre).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+				
+		
+		try {
+			facultades = this.facultadService.findFacuUni(nombre);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		
+		
+		return new ResponseEntity<List<Facultad>>(facultades, HttpStatus.OK);
 	}
 	
 	

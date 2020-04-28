@@ -25,10 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Asignatura;
 import com.uni.springboot.backend.apirest.models.Curso;
+import com.uni.springboot.backend.apirest.models.Facultad;
 import com.uni.springboot.backend.apirest.models.Grado;
+import com.uni.springboot.backend.apirest.models.Universidad;
 import com.uni.springboot.backend.apirest.service.AsignaturaService;
 import com.uni.springboot.backend.apirest.service.CursoService;
+import com.uni.springboot.backend.apirest.service.FacultadService;
 import com.uni.springboot.backend.apirest.service.GradoService;
+import com.uni.springboot.backend.apirest.service.UniversidadService;
 
 @RestController
 @RequestMapping("/api/asignaturas")
@@ -43,6 +47,12 @@ public class AsignaturaController {
 	
 	@Autowired
 	private CursoService cursoService;
+	
+	@Autowired
+	private FacultadService facultadService;
+	
+	@Autowired
+	private UniversidadService universidadService;
 	
 	
 	@GetMapping("")
@@ -269,11 +279,48 @@ public class AsignaturaController {
 	
 	
 	@GetMapping("/busquedaAsignaturas")
-	public List<Asignatura> findListaAsignatura(@RequestParam String universidad, 
+	public ResponseEntity<?> findListaAsignatura(@RequestParam String universidad, 
 			@RequestParam String facultad,
 			@RequestParam String grado,
-			@RequestParam String curso){
-		return this.asignaturaService.findListaAsignaturas(universidad, facultad, grado, curso);
+			@RequestParam String curso){	
+		Universidad uni = null;
+		Facultad facul = null;
+		Grado gra = null;
+		Curso cur = null;
+		List<Asignatura> asignaturas = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		uni = this.universidadService.findByName(universidad);
+		facul = this.facultadService.findByName(facultad);
+		gra = this.gradoService.findGradoNombre(grado);
+		cur = this.cursoService.findPorNombre(curso);
+		
+		if(uni == null) {
+			response.put("mensaje",	 "La universidad, cuyo nombre es '".concat(universidad).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}else if(facul == null) {
+			response.put("mensaje",	 "La facultad, cuyo nombre es '".concat(facultad).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}else if(gra == null) {
+			response.put("mensaje",	 "El grado, cuyo nombre es '".concat(grado).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}else if (cur == null) {
+			response.put("mensaje",	 "El curso, cuyo nombre es '".concat(curso).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+				
+		
+		try {
+			asignaturas = this.asignaturaService.findListaAsignaturas(universidad, facultad, grado, curso);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		
+		
+		return new ResponseEntity<List<Asignatura>>(asignaturas, HttpStatus.OK);
 	}
 	
 }
