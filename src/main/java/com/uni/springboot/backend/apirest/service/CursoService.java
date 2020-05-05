@@ -31,6 +31,9 @@ public class CursoService {
 		return this.cursoRepository.findById(cursoId).orElse(null);
 	}
 	
+	public Curso findPorNombre(String nombreCurso) {
+		return this.cursoRepository.getCursoPorNombre(nombreCurso);
+	}
 
 	public Curso save(final Curso c) {
 		return this.cursoRepository.save(c);

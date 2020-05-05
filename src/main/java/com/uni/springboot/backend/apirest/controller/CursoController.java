@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uni.springboot.backend.apirest.models.Curso;
+import com.uni.springboot.backend.apirest.models.Grado;
 import com.uni.springboot.backend.apirest.service.CursoService;
 import com.uni.springboot.backend.apirest.service.GradoService;
 
@@ -28,10 +29,26 @@ public class CursoController {
 	@Autowired
 	private GradoService gradoService;
 	
-	
 	@GetMapping("")
-	public List<Curso> findAll(){
-		return this.cursoService.findAll();
+	public ResponseEntity<?> findAll(){
+		List<Curso> cursos = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		try {
+			cursos = this.cursoService.findAll();
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		if(cursos.isEmpty()) {
+			response.put("resultado", cursos);
+			response.put("mensaje",	 "No se han encontrado cursos.");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK); 
+		}
+		
+		return new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
 	}
 	
 	
@@ -43,7 +60,7 @@ public class CursoController {
 		try {
 			curso = this.cursoService.findOne(id);
 		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 		}
@@ -59,8 +76,29 @@ public class CursoController {
 	
 	
 	@GetMapping("/grado")
-	public List<Curso> findGradoFacu(@RequestParam(value="nombre") String nombre){
-		return this.cursoService.cursosPorGrado(nombre);
+	public ResponseEntity<?> findGradoFacu(@RequestParam(value="nombre") String nombre){
+		Grado grado = null;
+		List<Curso> cursos = null;
+		Map<String, Object> response = new HashMap<String, Object>();
+		grado = this.gradoService.findGradoNombre(nombre);
+		
+		if(grado == null) {
+			response.put("mensaje",	 "El grado, cuyo nombre es '".concat(nombre).concat("', no existe."));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
+		}
+				
+		
+		try {
+			cursos = this.cursoService.cursosPorGrado(nombre);
+		}catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+		}
+		
+		
+		
+		return new ResponseEntity<List<Curso>>(cursos, HttpStatus.OK);
 	}
 	
 

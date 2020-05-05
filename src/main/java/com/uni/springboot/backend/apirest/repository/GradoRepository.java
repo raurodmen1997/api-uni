@@ -1,5 +1,6 @@
 package com.uni.springboot.backend.apirest.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,8 +17,16 @@ public interface GradoRepository extends JpaRepository<Grado, Long> {
 			+ "where uni.nombre=?1 AND facu.nombre=?2")
 	List<Grado> findGradoFacu(String universidad, String facultad);
 
+	
 	@Query("select g.id from grados g where g.nombre=?1")
 	Long findGradoId(String nombre);
+	
+	@Query("select g from grados g where g.nombre=?1")
+	Grado findGradoNombre(String nombre);
+	
+	
+	@Query("select g from grados g where g.facultad.nombre=?1")
+	Collection<Grado> getGradosPorFacultad(String nombreFacultad);
 	
 	
 }

@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "facultades")
 public class Facultad implements Serializable{
@@ -26,12 +28,13 @@ public class Facultad implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Column(nullable = false)
+	@NotEmpty
+	@Column(nullable = false, unique = true)
 	private String nombre;
 	
 	@Valid
 	@ManyToOne(optional=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "universidad_id")
 	private Universidad universidad;
 

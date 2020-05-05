@@ -1,7 +1,6 @@
 package com.uni.springboot.backend.apirest.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
+
+import validators.ValueEnum;
 
 
 
@@ -32,9 +35,22 @@ public class Asignatura implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotEmpty
 	@Column(nullable = false)
 	private String nombre;
+	
+	@NotEmpty
+	@Column(nullable = false)
+	private String codigo;
+	
+	@Range(min=1, max=18)
+	@Column(nullable = false)
+	private Double creditos;
+	
+	
+	@Column(nullable = false)
+	@ValueEnum(enumClass=TipoAsignatura.class)
+	private String tipo;
 	
 	@Valid
 	@ManyToOne(optional = false)
@@ -42,8 +58,10 @@ public class Asignatura implements Serializable{
 	private Curso curso;
 	
 	@Valid
-	@ManyToMany
-	private Collection<Grado> grados;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "grado_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Grado grado;
 	
 	
 	
@@ -71,13 +89,38 @@ public class Asignatura implements Serializable{
 		this.id = id;
 	}
 
-	public Collection<Grado> getGrados() {
-		return grados;
+	public Grado getGrado() {
+		return grado;
 	}
 
-	public void setGrados(Collection<Grado> grados) {
-		this.grados = grados;
+	public void setGrado(Grado grado) {
+		this.grado = grado;
 	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public Double getCreditos() {
+		return creditos;
+	}
+
+	public void setCreditos(Double creditos) {
+		this.creditos = creditos;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 	
 }

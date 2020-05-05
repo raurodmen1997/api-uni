@@ -26,11 +26,26 @@ public class UniversidadService {
 		return this.universidadRepository.findById(universidadId).orElse(null);
 	}
 	
-	public Long findUniId(String nombreUni) {
-		return this.universidadRepository.findUniId(nombreUni);
+	public Universidad findByName(String name) {
+		return this.universidadRepository.findByName(name);
 	}
 	
 	public Universidad save(final Universidad u) {
 		return this.universidadRepository.save(u);
 	}
+	
+	public Universidad edit(Long idUniversidad, Universidad universidad) {
+		Universidad uni = this.findOne(idUniversidad);
+		uni.setNombre(universidad.getNombre());
+		
+		Universidad saved = this.save(uni);
+		return saved;
+	}
+	
+	public void delete(final Universidad universidad) {
+		this.universidadRepository.delete(universidad);
+	}
+	
+	
+	
 }
