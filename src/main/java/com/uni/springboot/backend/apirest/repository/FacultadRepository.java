@@ -15,10 +15,6 @@ public interface FacultadRepository extends JpaRepository<Facultad, Long>{
 			+ "where uni.nombre=?1")
 	List<Facultad> findFacuUni(String universidad);
 	
-	/*
-	@Query("select f.id from facultades f where f.nombre=?1")
-	Long findFacuId(String nombreFacu);
-	*/
 	
 	@Query("select f from facultades f where f.nombre=?1")
 	Facultad findByName(String name);

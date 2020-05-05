@@ -198,26 +198,5 @@ public class UniversidadController {
 	}
 	
 	
-	/*
-	@GetMapping("/uniId")
-	public ResponseEntity<?> findOne(@RequestParam String nombreUni){
-		Long uniId = null;
-		Map<String, Object> response = new HashMap<String, Object>();
-		
-		try {
-			uniId = this.universidadService.findUniId(nombreUni);
-		}catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
-		}
-		
-		if(uniId == null) {
-			response.put("mensaje",	 "La universidad con nombre: ".concat(nombreUni.toString()).concat(" no existe"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND); 
-		}
-		
-		return new ResponseEntity<Long>(uniId, HttpStatus.OK);
-	}
-	*/
+	
 }
